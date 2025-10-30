@@ -1,30 +1,16 @@
-import express from "express";
 import dotenv from "dotenv";
-import cors from "cors";
 import mongoose from "mongoose";
-import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
+import app from "./app.js";
 
 dotenv.config();
-const app = express();
 
-app.use(cors());
-app.use(express.json());
-
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-
-app.get("/health", (req, res) => {
-  res.json({ status: "OK" });
-});
-
-const PORT = process.env.PORT || 4000;
-const MONGODB_URI = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 5000;
+const MONGO_URI = process.env.MONGO_URI;
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(MONGO_URI)
   .then(() => {
-    console.log("MongoDB Connected");
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    console.log("✅ MongoDB connected");
+    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
   })
-  .catch((err) => console.error("MongoDB connection error: ", err));
+  .catch((err) => console.error("MongoDB connection error:", err));
