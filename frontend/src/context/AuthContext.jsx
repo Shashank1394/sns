@@ -5,12 +5,26 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) setUser(JSON.parse(savedUser));
-    setLoading(false);
+    const initAuth = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) return setLoading(false);
+
+      try {
+        const res = await api.get("/auth/me");
+        setUser(res.data);
+      } catch (err) {
+        console.error("Auth restore failed", err.response?.data || err.message);
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
   }, []);
 
   const login = async (email, password) => {

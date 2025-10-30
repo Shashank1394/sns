@@ -25,11 +25,11 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    console.log("🔍 Login user found:", user);
+    console.log("Login user found:", user);
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("🔍 Password match result:", isMatch);
+    console.log("Password match result:", isMatch);
 
     if (!isMatch)
       return res.status(400).json({ message: "Invalid credentials" });
@@ -46,7 +46,16 @@ export const loginUser = async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email },
     });
   } catch (error) {
-    console.error("❌ Login error:", error);
+    console.error("Login error:", error);
     res.status(500).json({ message: error.message });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching user info" });
   }
 };
