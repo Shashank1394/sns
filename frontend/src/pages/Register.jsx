@@ -66,7 +66,12 @@ const Register = () => {
             placeholder="Password..."
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Register</button>
+          <button
+            type="submit"
+            className="w-full bg-linear-to-r from-accent-light to-accent text-white font-semibold py-2 rounded-lg hover:opacity-90 transition"
+          >
+            Register
+          </button>
         </form>
         <p className="text-center text-sm mt-4 text-gray-400">
           Already have an account?{" "}
