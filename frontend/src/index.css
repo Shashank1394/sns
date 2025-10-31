@@ -18,5 +18,9 @@ body {
 
 input,
 textarea {
-  @apply bg-[#202024] text-gray-100 border border-[#2c2c30] rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-accent focus:border-transparent;
+  @apply w-full bg-[#1f1f23] border border-[#2c2c30] rounded-lg px-3 py-2 focus:ring-2 focus:ring-accent-light outline-none transition;
+}
+
+button {
+  @apply w-full bg-linear-to-r from-accent-light to-accent text-white font-semibold py-2 rounded-lg hover:opacity-90 transition;
 }
