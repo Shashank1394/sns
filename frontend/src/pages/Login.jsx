@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  // Handle login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -21,7 +22,8 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-text">
+    <div className="min-h-screen flex items-center justify-center bg-background text-text relative overflow-hidden">
+      {/* animated background glow */}
       <motion.div
         className="absolute w-[400px] h-[400px] rounded-full bg-linear-to-r from-accent-light to-accent blur-3xl opacity-80"
         animate={{
@@ -74,6 +76,7 @@ const Login = () => {
             Login
           </button>
         </form>
+
         <p className="text-center text-sm mt-4 text-gray-400">
           Don't have an account?{" "}
           <Link to="/register" className="text-accent-light hover:underline">
@@ -84,4 +87,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;
